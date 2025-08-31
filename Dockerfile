@@ -4,14 +4,15 @@ WORKDIR /app
 
 # Copy application code and configs
 COPY agent /app/agent
+COPY orchestrator /app/orchestrator
 COPY configs /app/configs
 
 # Install runtime dependencies
-RUN pip install --no-cache-dir fastapi uvicorn
+RUN pip install --no-cache-dir fastapi uvicorn httpx
 
 # Default configuration path
 ENV CONFIG_PATH=/app/configs/echo.yaml
 
-EXPOSE 8000
+EXPOSE 8000 8001
 
 CMD ["python", "-m", "agent.main"]

@@ -8,3 +8,10 @@ services:
       - ./configs:/app/configs:ro
     ports:
       - "8000:8000"
+  orchestrator:
+    build: .
+    depends_on:
+      - agent
+    command: ["python", "-m", "orchestrator.main"]
+    ports:
+      - "8001:8001"
