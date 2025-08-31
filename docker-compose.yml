@@ -1,0 +1,10 @@
+version: '3.9'
+services:
+  agent:
+    build: .
+    environment:
+      CONFIG_PATH: /app/configs/echo.yaml
+    volumes:
+      - ./configs:/app/configs:ro
+    ports:
+      - "8000:8000"
