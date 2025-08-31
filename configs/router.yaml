@@ -1,0 +1,2 @@
+port: 8001
+agent_url: http://agent:8000/
