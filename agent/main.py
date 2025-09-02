@@ -21,5 +21,4 @@ if __name__ == "__main__":
     import uvicorn
 
     config = load_config()
-    syslog(co)
     uvicorn.run(app, host="0.0.0.0", port=config.get("port", 8000))
