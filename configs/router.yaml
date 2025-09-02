@@ -1,0 +1,3 @@
+port: 8101
+agent1_url: http://agent:8001/
+agent2_url: http://agent:8002/
