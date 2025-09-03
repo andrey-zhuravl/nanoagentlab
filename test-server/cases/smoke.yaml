@@ -1,0 +1,9 @@
+steps:
+  - name: orchestrator_to_agent
+    request:
+      method: POST
+      url: http://orchestrator:8101/
+      json: {}
+    expect:
+      status_code: 200
+      json: {}
