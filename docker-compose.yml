@@ -1,9 +1,19 @@
 version: '3.9'
 services:
+  base:
+    build:
+      context: .
+      dockerfile: base/Dockerfile
+    image: nanoagentlab-base
+    profiles: ["build"]
+
   agent1:
     build:
       context: .
       dockerfile: agent/Dockerfile
+    image: nanoagentlab-agent
+    depends_on:
+      - base
     command: ["python", "-m", "agent.main"]
     environment:
       CONFIG_PATH: /app/configs/agent1/agent.yaml
@@ -11,10 +21,11 @@ services:
       - ./configs:/app/configs:ro
     ports:
       - "8001:8001"
+
   agent2:
-    build:
-      context: .
-      dockerfile: agent/Dockerfile
+    image: nanoagentlab-agent
+    depends_on:
+      - agent1
     command: ["python", "-m", "agent.main"]
     environment:
       CONFIG_PATH: /app/configs/agent2/agent.yaml
@@ -22,10 +33,12 @@ services:
       - ./configs:/app/configs:ro
     ports:
       - "8002:8002"
+
   orchestrator:
     build:
       context: .
       dockerfile: orchestrator/Dockerfile
+    image: nanoagentlab-orchestrator
     depends_on:
       - agent1
       - agent2
