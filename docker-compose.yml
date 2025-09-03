@@ -46,3 +46,17 @@ services:
       - ./configs:/app/configs:ro
     ports:
       - "8101:8101"
+
+  test-server:
+    build:
+      context: .
+      dockerfile: test-server/Dockerfile
+    image: nanoagentlab-test-server
+    depends_on:
+      - orchestrator
+    command: ["python", "test-server/main.py"]
+    volumes:
+      - ./test-server:/app/test-server:ro
+      - ./configs:/app/configs:ro
+    ports:
+      - "8201:8201"
